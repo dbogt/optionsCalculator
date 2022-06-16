@@ -1,6 +1,8 @@
 import numpy as np
 import scipy.stats as si
 import streamlit as st
+import yfinUDFs as yf
+import pandas as pd
 
 #%% Options Functions
 def N(x):
@@ -50,3 +52,11 @@ Dividend Rate: {:.2%}\n
 Volatility: {:.2%}\n
 """.format(spot, strike, t, rf/100, divRate/100, vol/100)
 st.write(output)
+
+
+st.header("Option Chain")
+ticker = st.text_input("Ticker:","SPY")
+expDate = st.text_input("Expiry Date:","2022-11-18")
+optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
+df = yf.optionChain(ticker=ticker, date=expDate, calls_puts = optionType)
+st.write(df)
