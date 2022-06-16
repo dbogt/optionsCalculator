@@ -70,8 +70,9 @@ allDates = list(expDF.index)
 st.selectbox("All expiry dates:", allDates, index=0)
 
 expDate = st.text_input("Expiry Date:","2022-11-18")
-optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
-df = yf.optionChain(ticker=ticker, date=expDate, calls_puts = optionType)
+#optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
+df_calls = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "calls")
+df_puts = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "puts")
 
 price = yf.fnYFinJSON(ticker, "regularMarketPrice")
 ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
@@ -79,10 +80,19 @@ st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
 st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
 #fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
-fig = px.scatter(df, x='strike', y=['lastPrice','bid','ask'], title="Last Price at various Strikes")
-fig.add_vline(x=price)
-st.plotly_chart(fig)
-st.write(df)
+figCalls = px.scatter(df_calls, x='strike', y=['lastPrice','bid','ask'], title="Last Price at various Strikes")
+figCalls.add_vline(x=price)
+st.plotly_chart(figCalls)
+
+figPuts = px.scatter(df_puts, x='strike', y=['lastPrice','bid','ask'], title="Last Price at various Strikes")
+figPuts.add_vline(x=price)
+st.plotly_chart(figCalls)
+
+st.subheader("Calls Option Chain")
+st.write(df_calls)
+
+st.subheader("Puts Option Chain")
+st.write(df_puts)
 
 st.write("Expiry Dates")
 
