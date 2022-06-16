@@ -20,8 +20,8 @@ def putOption(S, K, T, r, q, sigma):
 st.header("Options Calculator")
 
 with st.sidebar.form(key='inputs_form'):    
-    spot = st.number_input('Spot Price (S):', value=100.0, min_value=0)
-    strike = st.number_input('Strike Price (K):', value=100.0, min_value=0)
+    spot = st.number_input('Spot Price (S):', value=100.0, min_value=0.0)
+    strike = st.number_input('Strike Price (K):', value=100.0, min_value=0.0)
     timeInterval = st.selectbox("Time interval:", ('Days','Months','Years'),index=0)
     timeToExp = st.number_input('Time to expiration in (t - {}):'.format(timeInterval), value=30, min_value=0)
     if timeInterval == 'Days':
