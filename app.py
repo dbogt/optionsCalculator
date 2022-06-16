@@ -19,6 +19,8 @@ def putOption(S, K, T, r, q, sigma):
     return K*np.exp(-r*T)*N(-d2) - S*np.exp(-q*T)*N(-d1)
 
 #%% Streamlit Controls
+st.set_page_config(layout="wide",page_title='Options Calculator')
+
 st.header("Options Calculator")
 
 with st.sidebar.form(key='inputs_form'):    
