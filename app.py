@@ -67,4 +67,4 @@ st.write(df)
 
 st.write("Expiry Dates")
 
-st.write(expDF)
+st.dataframe(expDF)
