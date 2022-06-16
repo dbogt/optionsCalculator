@@ -64,7 +64,9 @@ link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(tic
 expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
 
 price = yf.fnYFinJSON(ticker, "regularMarketPrice")
+ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
 st.metric("{} Last Price".format(ticker),price)
+st.metric("{} LTM Dividend Yield".format(ticker),{:.2%}.format(ltmDivYield))
 st.write(df)
 
 st.write("Expiry Dates")
