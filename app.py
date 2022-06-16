@@ -61,27 +61,35 @@ col3_2.metric("Volatility","{:.2%}".format(vol/100))
 
 #%% Option Chain 
 st.header("Option Chain")
-ticker = st.text_input("Ticker:","SPY")
 
-expDF = yf.grabExpDates(ticker)
-link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(ticker)
-expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
-allDates = list(expDF.index.strftime('%Y-%m-%d'))
-expDate = st.selectbox("Pick expiry date:", allDates, index=0)
+colInputs, colOutputs  = st.columns([1,1])
+with colInputs:
+    ticker = st.text_input("Ticker:","SPY")
+    expDF = yf.grabExpDates(ticker)
+    link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(ticker)
+    expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
+    allDates = list(expDF.index.strftime('%Y-%m-%d'))
+    expDate = st.selectbox("Pick expiry date:", allDates, index=0)
 
-#expDate = st.text_input("Expiry Date:","2022-11-18")
-#optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
-df_calls = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "calls")
-df_puts = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "puts")
+    #expDate = st.text_input("Expiry Date:","2022-11-18")
+    #optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
+    df_calls = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "calls")
+    df_puts = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "puts")
 
-df_calls['Type'] = 'Call'
-df_puts['Type'] = 'Put'
+    df_calls['Type'] = 'Call'
+    df_puts['Type'] = 'Put'
 
-df_all = pd.concat([df_calls, df_puts])
-price = yf.fnYFinJSON(ticker, "regularMarketPrice")
-ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
-st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
-st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
+    df_all = pd.concat([df_calls, df_puts])
+    price = yf.fnYFinJSON(ticker, "regularMarketPrice")
+    ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
+    st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
+    st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
+
+with colOutputs:
+    metricPlot = st.selectbox("Pick a metric to plot:", ('lastPrice','bid','ask'), index=0)
+    figAll = px.scatter(df_all, x='strike', y=metricPlot, color='Type', title="Option Prices at various Strikes")
+    figAll.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
+    st.plotly_chart(figAll)
 
 #fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
 figCalls = px.scatter(df_calls, x='strike', y=['lastPrice','bid','ask'], title="Option Prices at various Strikes")
@@ -90,10 +98,9 @@ figCalls.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(pric
 figPuts = px.scatter(df_puts, x='strike', y=['lastPrice','bid','ask'], title="Option Prices at various Strikes")
 figPuts.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
 
-figAll = px.scatter(df_all, x='strike', y=['lastPrice','bid','ask'], color='Type', title="Option Prices at various Strikes")
-figAll.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
 
-st.plotly_chart(figAll)
+
+
 
 colCalls, colPuts  = st.columns([1,1])
 with colCalls:
