@@ -42,8 +42,8 @@ call = callOption(spot, strike, t, rf/100, divRate/100, vol/100)
 put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
 st.metric("Call Value","${:.4f}".format(call))
 st.metric("Put Value","${:.4f}".format(put))
-output = """Spot: ${:.2f}
-Strike: ${:.2f}
+output = """Spot: {:.2f}
+Strike: {:.2f}
 Time (years): {:.2f} 
 Risk-Free Rate: {:.2%}
 Dividend Rate: {:.2%}
