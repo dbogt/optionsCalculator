@@ -3,6 +3,7 @@ import scipy.stats as si
 import streamlit as st
 import yfinUDFs as yf
 import pandas as pd
+import plotly.express as px
 
 #%% Options Functions
 def N(x):
@@ -76,6 +77,9 @@ price = yf.fnYFinJSON(ticker, "regularMarketPrice")
 ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
 st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
 st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
+
+fig = px.line(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
+st.plotly_chart(fig)
 st.write(df)
 
 st.write("Expiry Dates")
