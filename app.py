@@ -78,7 +78,9 @@ ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
 st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
 st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
-fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
+'fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
+fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes")
+
 st.plotly_chart(fig)
 st.write(df)
 
