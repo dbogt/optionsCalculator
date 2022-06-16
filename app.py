@@ -21,7 +21,12 @@ def putOption(S, K, T, r, q, sigma):
     return K*np.exp(-r*T)*N(-d2) - S*np.exp(-q*T)*N(-d1)
 
 #%% Streamlit Controls
-st.set_page_config(layout="wide",page_title='Options Calculator')
+st.set_page_config(layout="wide",page_title='Options Calculator',
+menu_items={
+        "About": f"Options Calculator"
+        f"\nApp contact: [Bogdan Tudose](mailto:bogdan.tudose@marqueegroup.ca)",
+        "Report a Bug": "https://github.com/dbogt/optionsCalculator/issues/",
+    })
 
 st.header("Options Calculator")
 
