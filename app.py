@@ -80,7 +80,7 @@ st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
 #fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
 fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes")
-
+fig.add_vline(x=price)
 st.plotly_chart(fig)
 st.write(df)
 
