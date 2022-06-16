@@ -61,12 +61,16 @@ col3_2.metric("Volatility","{:.2%}".format(vol/100))
 
 st.header("Option Chain")
 ticker = st.text_input("Ticker:","SPY")
-expDate = st.text_input("Expiry Date:","2022-11-18")
-optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
-df = yf.optionChain(ticker=ticker, date=expDate, calls_puts = optionType)
+
 expDF = yf.grabExpDates(ticker)
 link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(ticker)
 expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
+allDates = list(expDF.index)
+st.selectbox("All expiry dates:" allDates, index=0)
+
+expDate = st.text_input("Expiry Date:","2022-11-18")
+optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
+df = yf.optionChain(ticker=ticker, date=expDate, calls_puts = optionType)
 
 price = yf.fnYFinJSON(ticker, "regularMarketPrice")
 ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
