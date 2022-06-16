@@ -48,6 +48,12 @@ put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
 col1, col2= st.columns(2)
 col1.metric("Call Value","${:.4f}".format(call))
 col2.metric("Put Value","${:.4f}".format(put))
+
+col1_1, col2_1, col3_1 = st.columns(3)
+col1_1.metric("Spot","${:.2f}".format(spot))
+col2_1.metric("Strike","${:.2f}".format(strike))
+col3_1.metric("Time (years)","{:.2f}".format(t))
+
 output = """Spot: {:.2f}\n
 Strike: {:.2f}\n
 Time (years): {:.2f}\n 
