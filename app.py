@@ -74,6 +74,10 @@ expDate = st.selectbox("Pick expiry date:", allDates, index=0)
 df_calls = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "calls")
 df_puts = yf.optionChain(ticker=ticker, date=expDate, calls_puts = "puts")
 
+df_calls['Type'] = 'Call'
+df_puts['Type'] = 'Put'
+
+df_all = pd.concat([df_calls, df_puts])
 price = yf.fnYFinJSON(ticker, "regularMarketPrice")
 ltmDivYield = yf.fnYFinJSON(ticker,'trailingAnnualDividendYield')
 st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
@@ -84,8 +88,12 @@ figCalls = px.scatter(df_calls, x='strike', y=['lastPrice','bid','ask'], title="
 figCalls.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
 
 figPuts = px.scatter(df_puts, x='strike', y=['lastPrice','bid','ask'], title="Option Prices at various Strikes")
-figPuts.add_vline(x=price)
+figPuts.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
 
+figAll = px.scatter(df_all, x='strike', y=['lastPrice','bid','ask'], color='Type', title="Option Prices at various Strikes")
+figAll.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
+
+st.plotly_chart(figAll)
 
 colCalls, colPuts  = st.columns([1,1])
 with colCalls:
