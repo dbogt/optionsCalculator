@@ -53,15 +53,10 @@ col1_1, col2_1, col3_1 = st.columns(3)
 col1_1.metric("Spot","${:.2f}".format(spot))
 col2_1.metric("Strike","${:.2f}".format(strike))
 col3_1.metric("Time (years)","{:.2f}".format(t))
-
-output = """Spot: {:.2f}\n
-Strike: {:.2f}\n
-Time (years): {:.2f}\n 
-Risk-Free Rate: {:.2%}\n
-Dividend Rate: {:.2%}\n
-Volatility: {:.2%}\n
-""".format(spot, strike, t, rf/100, divRate/100, vol/100)
-st.write(output)
+col1_2, col2_2, col3_2 = st.columns(3)
+col1_2.metric("Risk-Free Rate","{:.2%}".format(rf/100))
+col2_2.metric("Dividend Rate:","{:.2%}".format(divRate/100))
+col3_2.metric("Volatility","{:.2%}".format(vol/100))
 
 
 st.header("Option Chain")
