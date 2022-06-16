@@ -44,8 +44,10 @@ with st.sidebar.form(key='inputs_form'):
  
 call = callOption(spot, strike, t, rf/100, divRate/100, vol/100)
 put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
-st.metric("Call Value","${:.4f}".format(call))
-st.metric("Put Value","${:.4f}".format(put))
+
+col1, col2, col3, col4, col5 = st.columns(5)
+col1.metric("Call Value","${:.4f}".format(call))
+col2.metric("Put Value","${:.4f}".format(put))
 output = """Spot: {:.2f}\n
 Strike: {:.2f}\n
 Time (years): {:.2f}\n 
