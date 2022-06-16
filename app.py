@@ -59,15 +59,15 @@ col1_2.metric("Risk-Free Rate","{:.2%}".format(rf/100))
 col2_2.metric("Dividend Rate:","{:.2%}".format(divRate/100))
 col3_2.metric("Volatility","{:.2%}".format(vol/100))
 
-
+#%% Option Chain 
 st.header("Option Chain")
 ticker = st.text_input("Ticker:","SPY")
 
 expDF = yf.grabExpDates(ticker)
 link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(ticker)
 expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
-allDates = list(expDF.index)
-st.selectbox("All expiry dates:", allDates, index=0)
+allDates = list(expDF.index.strftime('%Y-%m-%d'))
+st.selectbox("Pick expiry date:", allDates, index=0)
 
 expDate = st.text_input("Expiry Date:","2022-11-18")
 #optionType = st.selectbox("Call or Puts:",('calls','puts'),index=0)
