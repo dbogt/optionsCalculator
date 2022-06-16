@@ -31,9 +31,9 @@ with st.sidebar.form(key='inputs_form'):
     else:
         t = timeToExp
     st.write("Years to expiry: {:.2f}".format(t))
-    rf = st.number_input('Risk-Free Interest Rate (r in %):', value=5.0, min_value=0)
-    divRate = st.number_input('Dividend Rate (q in %):', value=0.0, min_value=0)
-    vol = st.number_input('Volatility (v in %):', value=25, min_value=0)
+    rf = st.number_input('Risk-Free Interest Rate (r in %):', value=5.0, min_value=0.0)
+    divRate = st.number_input('Dividend Rate (q in %):', value=0.0, min_value=0.0)
+    vol = st.number_input('Volatility (v in %):', value=25.0, min_value=0.0)
     #startDate = st.date_input('Start Date', pd.to_datetime('2016-11-01'))
     #endDate = st.date_input('End Date', datetime.now())
     submit_btn = st.sidebar.form_submit_button(label='Calculate')
