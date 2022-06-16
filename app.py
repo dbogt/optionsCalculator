@@ -47,6 +47,6 @@ Strike: {:.2f}\n
 Time (years): {:.2f}\n 
 Risk-Free Rate: {:.2%}\n
 Dividend Rate: {:.2%}\n
-Volatility: {:.2f}\n
+Volatility: {:.2%}\n
 """.format(spot, strike, t, rf/100, divRate/100, vol/100)
 st.write(output)
