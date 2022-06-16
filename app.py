@@ -63,6 +63,8 @@ expDF = yf.grabExpDates(ticker)
 link = "https://query2.finance.yahoo.com/v7/finance/options/{}?date=".format(ticker)
 expDF['Link'] = expDF.apply(lambda x: link+str(x['Unix Date']), axis=1)
 
+price = yf.fnYFinJSON(ticker, "regularMarketPrice")
+st.metric("{} Last Price".format(ticker),price)
 st.write(df)
 
 st.write("Expiry Dates")
