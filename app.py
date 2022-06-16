@@ -81,7 +81,7 @@ st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
 #fig = px.scatter(df, x='strike', y='lastPrice', title="Last Price at various Strikes for {:%Y-%m-%d}".format(expDate))
 figCalls = px.scatter(df_calls, x='strike', y=['lastPrice','bid','ask'], title="Option Prices at various Strikes")
-figCalls.add_vline(x=price, annotation="Current Price")
+figCalls.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
 
 figPuts = px.scatter(df_puts, x='strike', y=['lastPrice','bid','ask'], title="Option Prices at various Strikes")
 figPuts.add_vline(x=price)
