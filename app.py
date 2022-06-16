@@ -19,7 +19,7 @@ def putOption(S, K, T, r, q, sigma):
 #%% Streamlit Controls
 st.header("Options Calculator")
 
-with st.form(key='inputs_form'):    
+with st.sidebar.form(key='inputs_form'):    
     spot = st.number_input('Spot Price (S):', value=100, min_value=0)
     strike = st.number_input('Strike Price (K):', value=100, min_value=0)
     timeInterval = st.selectbox("Time interval:", ('Days','Months','Years'),index=0)
@@ -42,3 +42,11 @@ call = callOption(spot, strike, t, rf/100, divRate/100, vol/100)
 put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
 st.metric("Call Value","${:.4f}".format(call))
 st.metric("Put Value","${:.4f}".format(put))
+output = """Spot: ${:.2f}
+Strike: ${:.2f}
+Time (years): {:.2f} 
+Risk-Free Rate: {:.2%}
+Dividend Rate: {:.2%}
+Volatility: {:.2f}
+""".format(spot, strike, t, rf/100, divRate/100, vol/100)
+st.write(output)
