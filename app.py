@@ -36,7 +36,7 @@ with st.sidebar.form(key='inputs_form'):
     vol = st.number_input('Volatility (v in %):', value=25, min_value=0)
     #startDate = st.date_input('Start Date', pd.to_datetime('2016-11-01'))
     #endDate = st.date_input('End Date', datetime.now())
-    submit_btn = st.form_submit_button(label='Calculate')
+    submit_btn = st.sidebar.form_submit_button(label='Calculate')
  
 call = callOption(spot, strike, t, rf/100, divRate/100, vol/100)
 put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
