@@ -68,3 +68,4 @@ st.write(df)
 st.write("Expiry Dates")
 
 st.dataframe(expDF)
+st.write(expDF.to_html(escape=False, index=False), unsafe_allow_html=True)
