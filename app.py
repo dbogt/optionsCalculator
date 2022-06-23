@@ -28,6 +28,22 @@ menu_items={
         "Report a Bug": "https://github.com/dbogt/optionsCalculator/issues/",
     })
 
+
+#%% App Details
+appDetails = """
+Created by: [Bogdan Tudose](https://www.linkedin.com/in/tudosebogdan/) \n
+Date: June 16, 2022 \n
+Purpose: Compare different option chains and calculate value of calls/puts with Black Scholes \n
+This app has two applications:
+- You can calculate the value of a call or put using the sidebar Options Calculator
+- You can scrape from Yahoo Finance the options chains for a particular stock or index
+Short link: https://bit.ly/OptionsCalculator
+"""
+with st.expander("See app info"):
+    st.write(appDetails)
+
+
+#%% Options Calculator
 st.sidebar.header("Options Calculator")
 with st.sidebar.form(key='inputs_form'):    
     spot = st.number_input('Spot Price (S):', value=100.0, min_value=0.0)
