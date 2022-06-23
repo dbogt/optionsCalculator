@@ -116,11 +116,18 @@ with colInputs:
     unixTS = pd.Timestamp('{} 00:00:00'.format(expDate)).timestamp()
     st.write("Yahoo Finance Link: " + url.format(int(unixTS)))
 
+
 chartTitle = "{} Option Prices at various Strikes (Maturity: {})".format(ticker, expDate)
 
 with colOutputs:
     metricPlot = st.selectbox("Pick a metric to plot:", ('lastPrice','bid','ask','impliedVolatility'), index=0)
-    figAll = px.scatter(df_all, x='strike', y=metricPlot, color='Type', title=chartTitle)
+    titleMap = {'lastPrice':'Last Prices',
+                'bid':'Bid Prices',
+                'ask':'Ask Prices',
+                'impliedVolatility':'Implied Volatility'
+                }
+    chartTitleMain = "{} Option {} at various Strikes (Maturity: {})".format(ticker, titleMap[metricPlot], expDate)
+    figAll = px.scatter(df_all, x='strike', y=metricPlot, color='Type', title=chartTitleMain)
     figAll.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
     st.plotly_chart(figAll)
 
