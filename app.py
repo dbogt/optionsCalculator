@@ -112,6 +112,9 @@ with colInputs:
     st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
     st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
+    url = "https://finance.yahoo.com/quote/AAPL/options?p=AAPL&date=1657238400"
+    st.write(url)
+
 chartTitle = "{} Option Prices at various Strikes (Maturity: {})".format(ticker, expDate)
 
 with colOutputs:
