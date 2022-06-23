@@ -119,7 +119,7 @@ with colInputs:
 chartTitle = "{} Option Prices at various Strikes (Maturity: {})".format(ticker, expDate)
 
 with colOutputs:
-    metricPlot = st.selectbox("Pick a metric to plot:", ('lastPrice','bid','ask'), index=0)
+    metricPlot = st.selectbox("Pick a metric to plot:", ('lastPrice','bid','ask','Implied Volatility'), index=0)
     figAll = px.scatter(df_all, x='strike', y=metricPlot, color='Type', title=chartTitle)
     figAll.add_vline(x=price, annotation_text="Current Price: ${:.2f}".format(price))
     st.plotly_chart(figAll)
