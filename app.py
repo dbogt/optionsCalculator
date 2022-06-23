@@ -56,6 +56,9 @@ col1, col2= st.columns(2)
 col1.metric("Call Value","${:.4f}".format(call))
 col2.metric("Put Value","${:.4f}".format(put))
 
+st.sidebar.metric("Call Value","${:.4f}".format(call))
+st.sidebar.metric("Put Value","${:.4f}".format(put))
+
 col1_1, col2_1, col3_1 = st.columns(3)
 col1_1.metric("Spot","${:.2f}".format(spot))
 col2_1.metric("Strike","${:.2f}".format(strike))
