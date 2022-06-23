@@ -28,8 +28,7 @@ menu_items={
         "Report a Bug": "https://github.com/dbogt/optionsCalculator/issues/",
     })
 
-st.header("Options Calculator")
-
+st.sidebar.header("Options Calculator")
 with st.sidebar.form(key='inputs_form'):    
     spot = st.number_input('Spot Price (S):', value=100.0, min_value=0.0)
     strike = st.number_input('Strike Price (K):', value=100.0, min_value=0.0)
@@ -52,22 +51,24 @@ with st.sidebar.form(key='inputs_form'):
 call = callOption(spot, strike, t, rf/100, divRate/100, vol/100)
 put = putOption(spot, strike, t, rf/100, divRate/100, vol/100)
 
-col1, col2= st.columns(2)
-col1.metric("Call Value","${:.4f}".format(call))
-col2.metric("Put Value","${:.4f}".format(put))
-
 col1_side, col2_side= st.sidebar.columns(2)
 col1_side.metric("Call Value","${:.4f}".format(call))
 col2_side.metric("Put Value","${:.4f}".format(put))
 
-col1_1, col2_1, col3_1 = st.columns(3)
-col1_1.metric("Spot","${:.2f}".format(spot))
-col2_1.metric("Strike","${:.2f}".format(strike))
-col3_1.metric("Time (years)","{:.2f}".format(t))
-col1_2, col2_2, col3_2 = st.columns(3)
-col1_2.metric("Risk-Free Rate","{:.2%}".format(rf/100))
-col2_2.metric("Dividend Rate:","{:.2%}".format(divRate/100))
-col3_2.metric("Volatility","{:.2%}".format(vol/100))
+if st.checkbox("Show Options Calculator Results"):
+    st.header("Options Calculator")
+    col1, col2= st.columns(2)
+    col1.metric("Call Value","${:.4f}".format(call))
+    col2.metric("Put Value","${:.4f}".format(put))
+
+    col1_1, col2_1, col3_1 = st.columns(3)
+    col1_1.metric("Spot","${:.2f}".format(spot))
+    col2_1.metric("Strike","${:.2f}".format(strike))
+    col3_1.metric("Time (years)","{:.2f}".format(t))
+    col1_2, col2_2, col3_2 = st.columns(3)
+    col1_2.metric("Risk-Free Rate","{:.2%}".format(rf/100))
+    col2_2.metric("Dividend Rate:","{:.2%}".format(divRate/100))
+    col3_2.metric("Volatility","{:.2%}".format(vol/100))
 
 #%% Option Chain 
 st.header("Option Chain")
