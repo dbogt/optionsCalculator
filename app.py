@@ -112,8 +112,9 @@ with colInputs:
     st.metric("{} Last Price".format(ticker),"{:.2f}".format(price))
     st.metric("{} LTM Dividend Yield".format(ticker),"{:.2%}".format(ltmDivYield))
 
-    url = "https://finance.yahoo.com/quote/AAPL/options?p=AAPL&date=1657238400"
-    st.write(url)
+    url = "https://finance.yahoo.com/quote/AAPL/options?p=AAPL&date={}"
+    unixTS = pd.Timestamp('{} 00:00:00'.format(expDate)).timestamp()
+    st.write(url.format(int(unixTS)))
 
 chartTitle = "{} Option Prices at various Strikes (Maturity: {})".format(ticker, expDate)
 
