@@ -114,7 +114,7 @@ with colInputs:
 
     url = "https://finance.yahoo.com/quote/{}/options?p={}&date={}"
     unixTS = pd.Timestamp('{} 00:00:00'.format(expDate)).timestamp()
-    st.write("Yahoo Finance Link: " + url.format(int(ticker, ticker, unixTS)))
+    st.write("Yahoo Finance Link: " + url.format(ticker, ticker, int(unixTS)))
 
 
 chartTitle = "{} Option Prices at various Strikes (Maturity: {})".format(ticker, expDate)
