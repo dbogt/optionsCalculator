@@ -62,7 +62,7 @@ def fnYFinHist(stock, interval='1d', day_begin='01-01-2013', day_end='17-11-2021
     
     returns a list of comma seperated value lines
     """
-    stock = 'AAPL'
+    #stock = 'AAPL'
     
     day_begin_unix = convert_to_unix(day_begin)
     day_end_unix = convert_to_unix(day_end)
